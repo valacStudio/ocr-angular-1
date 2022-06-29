@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {FaceSnap} from "../models/face-snap.model";
+import {FaceSnapsService} from "../services/face-snaps.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-face-snap',
@@ -6,22 +9,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./face-snap.component.scss']
 })
 export class FaceSnapComponent implements OnInit{
-  title!:string;
-  description!:string;
-  createdDate!: Date;
-  snaps!:number;
-  urlImg!: string;
+  @Input() faceSnap!: FaceSnap;
+
   userSnapped!:boolean;
   buttonSnap!:string;
+
+  constructor(private faceSnapsService: FaceSnapsService, private router: Router) {
+  }
 
   ngOnInit(): void {
     this.buttonSnap = "Oh Snap!";
     this.userSnapped = false;
-    this.title = "Logan";
-    this.description = "Logan dit papa !";
-    this.createdDate = new Date();
-    this.snaps = 100000;
-    this.urlImg ="https://pbs.twimg.com/profile_images/859446866244665344/XB2yVxCj_400x400.jpg";
   }
 
   onSnap(){
@@ -33,14 +31,18 @@ export class FaceSnapComponent implements OnInit{
   }
 
   addSnap(){
-    this.snaps++;
+    this.faceSnapsService.snapFaceSnapById(this.faceSnap.id,'snap');
     this.userSnapped=true;
     this.buttonSnap = "Oops, unSnap!";
   }
 
   removeSnap(){
-    this.snaps--;
+    this.faceSnapsService.snapFaceSnapById(this.faceSnap.id,'unsnap');
     this.userSnapped=false;
     this.buttonSnap = "Oh Snap!";
+  }
+
+  onViewFaceSnap(){
+    this.router.navigateByUrl(`facesnaps/${this.faceSnap.id}`);
   }
 }

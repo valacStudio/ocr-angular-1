@@ -1,7 +1,7 @@
 <div class="face-snap-card" [ngClass]="{snapped : userSnapped}">
   <h2>{{ faceSnap.title | titlecase}}</h2>
   <p>Mis en ligne le {{ faceSnap.createdDate | date:'medium' }}</p>
-  <img [src]="faceSnap.urlImg" [alt]="faceSnap.title">
+  <img [src]="faceSnap.imageUrl" [alt]="faceSnap.title">
   <p>{{ faceSnap.description }}</p>
   <p *ngIf="faceSnap.location">Photo prise à {{ faceSnap.location }}</p>
   <p>{{ 422.467 | number }}</p>
@@ -9,4 +9,5 @@
     <button (click)="onSnap()" >{{buttonSnap}}</button>
     <span [ngStyle]="{color : 'rgb(0,'+faceSnap.snaps+',0)'}">{{ faceSnap.snaps }}</span>
   </p>
+  <a routerLink="/facesnaps">Back</a>
 </div>

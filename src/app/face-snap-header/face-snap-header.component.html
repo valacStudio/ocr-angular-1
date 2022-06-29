@@ -1,1 +1,8 @@
-<p>face-snap-header works!</p>
+<header>
+  <h1>FaceSnap</h1>
+  <nav>
+    <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Home</a>
+    <a routerLink="facesnaps" routerLinkActive="active">Snaps</a>
+    <button (click)="onAddNewFaceSnap()">+</button>
+  </nav>
+</header>
