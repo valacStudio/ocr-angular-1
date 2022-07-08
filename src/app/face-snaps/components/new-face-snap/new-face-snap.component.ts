@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validator, Validators} from "@angular/forms";
-import {FaceSnap} from "../models/face-snap.model";
-import {map, Observable} from "rxjs";
-import {FaceSnapsService} from "../services/face-snaps.service";
+import {FaceSnap} from "../../../core/models/face-snap.model";
+import {map, Observable, tap} from "rxjs";
+import {FaceSnapsService} from "../../../core/services/face-snaps.service";
 import {Router} from "@angular/router";
 
 @Component({
@@ -42,8 +42,12 @@ export class NewFaceSnapComponent implements OnInit {
   }
 
   onSubmitForm(): void {
-    this.faceSnapsService.addFaceSnap(this.snapForm.value)
-    this.route.navigateByUrl("/facesnaps");
+    this.faceSnapsService.addFaceSnap(this.snapForm.value).pipe(
+      tap(()=>{
+        this.route.navigateByUrl("/facesnaps");
+      })
+    ).subscribe();
+
   }
 
 }
